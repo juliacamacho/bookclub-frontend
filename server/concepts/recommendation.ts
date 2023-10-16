@@ -17,6 +17,6 @@ export default class RecConcept {
 
   async sendRec(userFrom: ObjectId, userTo: ObjectId, book: ObjectId) {
     const _id = await this.recs.createOne({ userFrom, userTo, book });
-    return { msg: "Reccomendation successfully created!", folder: await this.recs.readOne({ _id }) };
+    return { msg: "Recommendation successfully created!", rec: await this.recs.readOne({ _id }) };
   }
 }

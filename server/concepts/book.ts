@@ -18,10 +18,26 @@ export default class BookConcept {
     return books;
   }
 
+  async idsToTitles(ids: ObjectId[]) {
+    const books = await this.books.readMany({ _id: { $in: ids } });
+
+    // Store strings in Map because ObjectId comparison by reference is wrong
+    const idToTitle = new Map(books.map((book) => [book._id.toString(), book]));
+    return ids.map((id) => idToTitle.get(id.toString())?.title ?? "DELETED_BOOK");
+  }
+
   async getBookByTitle(title: string) {
     const book = await this.books.readOne({ title: title });
     if (book === null) {
       throw new NotFoundError(`Book not found!`);
+    }
+    return book;
+  }
+
+  async getBookById(_id: ObjectId) {
+    const book = await this.books.readOne({ _id });
+    if (book === null) {
+      throw new NotFoundError(`Book ${_id} not found!`);
     }
     return book;
   }

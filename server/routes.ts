@@ -147,10 +147,15 @@ class Routes {
   }
 
   @Router.get("/books")
-  async getBooks(title?: string) {
+  async getBooks(_id?: ObjectId, title?: string) {
+    console.log("here");
     let books;
     if (title) {
+      // books = await Book.getBookByTitle(title);
       books = await Book.getBooks({ title });
+    } else if (_id) {
+      // books = await Book.getBookById(_id);
+      books = await Book.getBooks({ _id });
     } else {
       books = await Book.getBooks({});
     }
@@ -161,6 +166,11 @@ class Routes {
   @Router.post("/books")
   async addBook(title: string, author: string, description: string) {
     return await Book.addBook(title, author, description);
+  }
+
+  @Router.get("/books/:_id")
+  async getBook(_id: ObjectId) {
+    return await Book.getBookById(_id);
   }
 
   @Router.delete("/books/:_id")
@@ -234,11 +244,11 @@ class Routes {
   }
 
   @Router.post("/books/:bookId")
-  async sendRecommendation(bookId: ObjectId, usernameTo: string, usernameFrom: string) {
+  async sendRecommendation(book: ObjectId, usernameTo: string, usernameFrom: string) {
     const userToId = (await User.getUserByUsername(usernameTo))._id;
     const userFromId = (await User.getUserByUsername(usernameFrom))._id;
     // // const book = (await Book.getBookByTitle(bookTitle))._id;
-    return await Rec.sendRec(userFromId, userToId, bookId);
+    return await Rec.sendRec(userFromId, userToId, book);
   }
 
   @Router.get("/invitations/received")

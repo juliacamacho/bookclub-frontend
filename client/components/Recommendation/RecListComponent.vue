@@ -32,7 +32,7 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <h1>Friends</h1>
+  <!-- <h1>Friends</h1> -->
   <section class="friends" v-if="loaded && friends.length !== 0">
     <article v-for="friend in friends" :key="friend._id">
       <FriendRecsComponent :userFrom="friend" />
@@ -46,4 +46,3 @@ onBeforeMount(async () => {
 
 <style scoped>
 </style>
-

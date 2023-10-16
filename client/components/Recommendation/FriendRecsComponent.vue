@@ -3,6 +3,7 @@ import { useUserStore } from "@/stores/user";
 import { fetchy } from "@/utils/fetchy";
 import { storeToRefs } from "pinia";
 import { onBeforeMount, ref } from "vue";
+// import FriendBooksListComponent
 
 const { currentUsername, isLoggedIn } = storeToRefs(useUserStore());
 const props = defineProps(["userFrom"]);
@@ -10,18 +11,20 @@ const props = defineProps(["userFrom"]);
 const loaded = ref(false);
 let recs = ref<Array<Record<string, string>>>([]);
 
-async function getRecsFromUser(userTo: string, userFrom: string) {
-  let recsResults;
+async function getRecsFromUser(username: string, from: string) {
+  // console.log("userTo:", username);
+  // console.log("userFrom:", from);
   try {
-    recsResults = await fetchy("/api/recommendations", "GET", { userTo, userFrom });
+    recs.value = await fetchy("/api/recommendations", "GET", { query: { username, from } });
   } catch (_) {
+    console.log("catching");
     return;
   }
-  recs.value = recsResults;
 }
 
 onBeforeMount(async () => {
-  await getRecsFromUser(currentUsername, props.userFrom);
+  // console.log("props.userFrom:", props.userFrom);
+  await getRecsFromUser(currentUsername.value, props.userFrom);
   loaded.value = true;
 });
 </script>
@@ -29,13 +32,12 @@ onBeforeMount(async () => {
 <template>
   <section class="recs" v-if="loaded && recs.length !== 0">
     <article v-for="rec in recs" :key="rec._id">
-      <FriendBooksComponent />
-      <h1>Book</h1>
+      <!-- <FriendBooksComponent /> -->
+      <h1>{{ props.userFrom }}</h1>
     </article>
   </section>
   <p v-else-if="loaded">No recommendations found</p>
   <p v-else>Loading...</p>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

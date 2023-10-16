@@ -219,6 +219,9 @@ class Routes {
 
   @Router.get("/recommendations")
   async getUserRecommendations(username: string, from?: string) {
+    // console.log("HERE");
+    // console.log("username:", username);
+    // console.log("from:", from);
     const userId = (await User.getUserByUsername(username))._id;
     if (from) {
       const userFromId = (await User.getUserByUsername(from))._id;

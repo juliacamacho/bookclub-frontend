@@ -217,7 +217,7 @@ class Routes {
     return await Folder.addToFolder({ owner: userId, name: folderName }, bookId);
   }
 
-  @Router.get("/user/:username/recommendations")
+  @Router.get("/recommendations")
   async getUserRecommendations(username: string) {
     const userId = (await User.getUserByUsername(username))._id;
     const recs = await Rec.getUserRecs({ userTo: userId });

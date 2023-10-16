@@ -3,55 +3,42 @@ import { useUserStore } from "@/stores/user";
 import { fetchy } from "@/utils/fetchy";
 import { storeToRefs } from "pinia";
 import { onBeforeMount, ref } from "vue";
+import FriendRecsComponent from "@/components/Post/FriendRecsComponent.vue";
 
-const { isLoggedIn } = storeToRefs(useUserStore());
+const { currentUsername, isLoggedIn } = storeToRefs(useUserStore());
+// const props = defineProps(["userFrom"]);
 
 const loaded = ref(false);
-let posts = ref<Array<Record<string, string>>>([]);
-let editing = ref("");
-let searchAuthor = ref("");
+let friends = ref<Array<Record<string, string>>>([]);
 
-async function getPosts(author?: string) {
-  let query: Record<string, string> = author !== undefined ? { author } : {};
-  let postResults;
+async function getFriends() {
+  let friendsResults;
   try {
-    postResults = await fetchy("/api/posts", "GET", { query });
+    friendsResults = await fetchy("/api/friends", "GET");
   } catch (_) {
     return;
   }
-  searchAuthor.value = author ? author : "";
-  posts.value = postResults;
-}
-
-function updateEditing(id: string) {
-  editing.value = id;
+  friends.value = friendsResults;
 }
 
 onBeforeMount(async () => {
-  await getPosts();
+  await getFriends();
   loaded.value = true;
 });
 </script>
 
 <template>
-  <section v-if="isLoggedIn">
-    <h2>Create a post:</h2>
-    <!-- <CreatePostForm @refreshPosts="getPosts" /> -->
-  </section>
-  <!-- <div class="row">
-    <h2 v-if="!searchAuthor">Posts:</h2>
-    <h2 v-else>Posts by {{ searchAuthor }}:</h2>
-    <SearchPostForm @getPostsByAuthor="getPosts" />
-  </div>
-  <section class="posts" v-if="loaded && posts.length !== 0">
-    <article v-for="post in posts" :key="post._id">
-      <PostComponent v-if="editing !== post._id" :post="post" @refreshPosts="getPosts" @editPost="updateEditing" />
-      <EditPostForm v-else :post="post" @refreshPosts="getPosts" @editPost="updateEditing" />
+  <h1>Friends</h1>
+  <section class="friends" v-if="loaded && friends.length !== 0">
+    <article v-for="friend in friends" :key="friend._id">
+      <!-- <FriendBooksComponent /> -->
+      <h1>{{ friend }}</h1>
     </article>
   </section>
-  <p v-else-if="loaded">No posts found</p>
-  <p v-else>Loading...</p> -->
+  <p v-else-if="loaded">No friends found</p>
+  <p v-else>Loading...</p>
 </template>
 
 <style scoped>
 </style>
+

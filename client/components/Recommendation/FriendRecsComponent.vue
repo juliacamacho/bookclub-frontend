@@ -4,52 +4,37 @@ import { fetchy } from "@/utils/fetchy";
 import { storeToRefs } from "pinia";
 import { onBeforeMount, ref } from "vue";
 
-const { isLoggedIn } = storeToRefs(useUserStore());
+const { currentUsername, isLoggedIn } = storeToRefs(useUserStore());
+const props = defineProps(["userFrom"]);
 
 const loaded = ref(false);
-let posts = ref<Array<Record<string, string>>>([]);
-let editing = ref("");
-let searchAuthor = ref("");
+let recs = ref<Array<Record<string, string>>>([]);
 
-async function getPosts(author?: string) {
-  let query: Record<string, string> = author !== undefined ? { author } : {};
-  let postResults;
+async function getRecsFromUser(userTo: string, userFrom: string) {
+  let recsResults;
   try {
-    postResults = await fetchy("/api/posts", "GET", { query });
+    recsResults = await fetchy("/api/recommendations", "GET", { userTo, userFrom });
   } catch (_) {
     return;
   }
-  searchAuthor.value = author ? author : "";
-  posts.value = postResults;
-}
-
-function updateEditing(id: string) {
-  editing.value = id;
+  recs.value = recsResults;
 }
 
 onBeforeMount(async () => {
-  await getPosts();
+  await getRecsFromUser(currentUsername, props.userFrom);
   loaded.value = true;
 });
 </script>
 
 <template>
-  <section v-if="isLoggedIn">
-    <h2>Create a post:</h2>
-  </section>
-  <!-- <div class="row">
-    <h2 v-if="!searchAuthor">Posts:</h2>
-    <h2 v-else>Posts by {{ searchAuthor }}:</h2>
-    <SearchPostForm @getPostsByAuthor="getPosts" />
-  </div>
-  <section class="posts" v-if="loaded && posts.length !== 0">
-    <article v-for="post in posts" :key="post._id">
-      <PostComponent v-if="editing !== post._id" :post="post" @refreshPosts="getPosts" @editPost="updateEditing" />
-      <EditPostForm v-else :post="post" @refreshPosts="getPosts" @editPost="updateEditing" />
+  <section class="recs" v-if="loaded && recs.length !== 0">
+    <article v-for="rec in recs" :key="rec._id">
+      <FriendBooksComponent />
+      <h1>Book</h1>
     </article>
   </section>
-  <p v-else-if="loaded">No posts found</p>
-  <p v-else>Loading...</p> -->
+  <p v-else-if="loaded">No recommendations found</p>
+  <p v-else>Loading...</p>
 </template>
 
 <style scoped>

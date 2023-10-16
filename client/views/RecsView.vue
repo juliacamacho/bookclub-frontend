@@ -3,18 +3,15 @@ import RecListComponent from "@/components/Recommendation/RecListComponent.vue";
 import { useUserStore } from "@/stores/user";
 import { storeToRefs } from "pinia";
 
-const { currentUsername, isLoggedIn } = storeToRefs(useUserStore());
+const { isLoggedIn } = storeToRefs(useUserStore());
 </script>
 
 <template>
-  <main>
+  <main v-if="isLoggedIn">
     <h1>My Recommendations</h1>
-    <section>
-      <h1 v-if="isLoggedIn">Welcome {{ currentUsername }}!</h1>
-      <h1 v-else>Please login!</h1>
-    </section>
     <RecListComponent />
   </main>
+  <h1 v-else>Please login!</h1>
 </template>
 
 <style scoped>

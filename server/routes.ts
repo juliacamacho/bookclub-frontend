@@ -218,10 +218,16 @@ class Routes {
   }
 
   @Router.get("/recommendations")
-  async getUserRecommendations(username: string) {
+  async getUserRecommendations(username: string, from?: string) {
     const userId = (await User.getUserByUsername(username))._id;
-    const recs = await Rec.getUserRecs({ userTo: userId });
-    return recs;
+    if (from) {
+      const userFromId = (await User.getUserByUsername(from))._id;
+      const recs = await Rec.getUserRecs({ userTo: userId, userFrom: userFromId });
+      return recs;
+    } else {
+      const recs = await Rec.getUserRecs({ userTo: userId });
+      return recs;
+    }
   }
 
   @Router.post("/books/:bookId")

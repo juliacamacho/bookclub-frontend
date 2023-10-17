@@ -7,7 +7,6 @@ import { onBeforeMount, ref } from "vue";
 
 const { currentUsername, isLoggedIn } = storeToRefs(useUserStore());
 const props = defineProps(["name", "books"]);
-
 const loaded = ref(false);
 
 onBeforeMount(async () => {
@@ -20,7 +19,7 @@ onBeforeMount(async () => {
   <section class="recs" v-if="loaded && books.length !== 0">
     <h1>From {{ props.name }}:</h1>
     <article v-for="book in books" :key="book._id">
-      <h1>book: {{ book.title }}</h1>
+      <a :href="`/books/${book._id}`">{{ book.title }}</a>
     </article>
   </section>
   <p v-else-if="loaded">No books found</p>

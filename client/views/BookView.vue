@@ -9,12 +9,10 @@ const { currentUsername, isLoggedIn } = storeToRefs(useUserStore());
 <template>
   <main>
     <h1>Book</h1>
-    <section>
-      <h1 v-if="isLoggedIn">Welcome {{ currentUsername }}!</h1>
-      <h1 v-else>Please login!</h1>
-      <!-- <h1>{{ $route.params._id }}</h1> -->
+    <section v-if="isLoggedIn">
       <BookComponent v-bind:bookId="$route.params._id" />
     </section>
+    <h1 v-else>Please login!</h1>
   </main>
 </template>
 

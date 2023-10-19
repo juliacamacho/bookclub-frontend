@@ -4,12 +4,14 @@ import { fetchy } from "@/utils/fetchy";
 import { ObjectId } from "mongodb";
 import { storeToRefs } from "pinia";
 import { onBeforeMount, ref } from "vue";
+import RecommendingComponent from "@/components/Recommendation/RecommendingComponent.vue";
 
 const { currentUsername, isLoggedIn } = storeToRefs(useUserStore());
 const props = defineProps(["bookId"]);
 
 const book = ref<Record<string, string>>();
 const loaded = ref(false);
+const recommending = ref(false);
 
 async function getBookFromId(_id: ObjectId) {
   let book;
@@ -19,6 +21,10 @@ async function getBookFromId(_id: ObjectId) {
     // console.log("catching");
   }
   return book;
+}
+
+async function toggleRecommend() {
+  recommending.value = recommending.value === true ? false : true;
 }
 
 onBeforeMount(async () => {
@@ -36,6 +42,11 @@ onBeforeMount(async () => {
   </section>
   <p v-else-if="loaded">No book found</p>
   <p v-else>Loading...</p>
+  <button @click="toggleRecommend">Recommend to a friend</button>
+  <section v-if="recommending">
+    <h3>Choose a friend to recommend this to:</h3>
+    <RecommendingComponent v-bind:bookId="props.bookId" />
+  </section>
 </template>
 
 <style scoped>

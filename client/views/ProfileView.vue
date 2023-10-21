@@ -8,7 +8,6 @@ const { currentUsername, isLoggedIn } = storeToRefs(useUserStore());
 
 <template>
   <main>
-    <h1>Home Page</h1>
     <section>
       <h1 v-if="isLoggedIn">{{ $route.params.username }}'s Profile</h1>
       <h1 v-else>Please login!</h1>
@@ -18,7 +17,4 @@ const { currentUsername, isLoggedIn } = storeToRefs(useUserStore());
 </template>
 
 <style scoped>
-h1 {
-  text-align: center;
-}
 </style>

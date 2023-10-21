@@ -57,6 +57,7 @@ onBeforeMount(async () => {
   <section class="friends" v-if="loaded && friendsWhoRead.length !== 0">
     <article v-for="friend in friendsWhoRead" :key="friend._id">
       <h1>{{ friend }}</h1>
+      <!-- todo: add their rating for the book -->
     </article>
   </section>
   <p v-else-if="loaded">None of your friends have read this book yet</p>

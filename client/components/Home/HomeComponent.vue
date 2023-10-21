@@ -24,3 +24,6 @@ const tabs = {
     <component :is="tabs[currentTab]" class="tab"></component>
   </div>
 </template>
+
+<style scoped>
+</style>

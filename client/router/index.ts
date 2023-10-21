@@ -8,6 +8,7 @@ import NotFoundView from "../views/NotFoundView.vue";
 import SettingView from "../views/SettingView.vue";
 import RecsView from "../views/RecsView.vue";
 import BookView from "../views/BookView.vue";
+import ProfileView from "../views/ProfileView.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -33,6 +34,12 @@ const router = createRouter({
       path: "/books/:_id",
       name: "Book",
       component: BookView,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: "/users/:username",
+      name: "Profile",
+      component: ProfileView,
       meta: { requiresAuth: true },
     },
     {

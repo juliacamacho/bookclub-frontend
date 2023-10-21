@@ -6,37 +6,34 @@ import { onBeforeMount, ref } from "vue";
 import BooksListComponent from "@/components/Book/BooksListComponent.vue";
 
 const { currentUsername, isLoggedIn } = storeToRefs(useUserStore());
-const props = defineProps(["userFrom"]);
+const props = defineProps(["username"]);
 
 const loaded = ref(false);
-let recs = ref<Array<Record<string, string>>>([]);
-let recsBooks = ref<Array<Record<string, string>>>([]);
+let folderContents = ref<Array<Record<string, string>>>([]);
+let folderBooks = ref<Array<Record<string, string>>>([]);
 
-async function getBooksFromIds(recs: Array<Record<string, string>>) {
-  // console.log("userTo:", username);
-  // console.log("userFrom:", from);
+async function getBooksFromIds(folderBooks: Array<Record<string, string>>) {
   let booksList: Array<Record<string, string>> = [];
   try {
-    for (const rec of recs) {
-      const _id = rec.book;
-      console.log("id:", _id);
+    for (const folderBook of folderBooks) {
+      const _id = folderBook;
       const book = await fetchy(`/api/books/${_id}`, "GET");
       booksList.push(book);
     }
   } catch (_) {
     // console.log("catching");
   }
-  console.log("booksList:", booksList);
+  // console.log("booksList:", booksList);
   return [...booksList];
 }
 
 // get books from folder
-async function getRecsFromUser(username: string, from: string) {
-  // console.log("userTo:", username);
-  // console.log("userFrom:", from);
+async function getFolderContents() {
   try {
-    recs.value = await fetchy("/api/recommendations", "GET", { query: { username, from } });
-    recsBooks.value = await getBooksFromIds(recs.value);
+    folderContents.value = await fetchy(`/api/user/${props.username}/folders/ToRead`, "GET");
+    // console.log("folderContents.value:", folderContents.value);
+    folderBooks.value = await getBooksFromIds(folderContents.value);
+    // console.log("folderBooks.value:", folderBooks.value);
   } catch (_) {
     // console.log("catching");
     return;
@@ -45,20 +42,20 @@ async function getRecsFromUser(username: string, from: string) {
 
 onBeforeMount(async () => {
   // console.log("props.userFrom:", props.userFrom);
-  await getRecsFromUser(currentUsername.value, props.userFrom);
+  await getFolderContents();
   loaded.value = true;
 });
 </script>
 
 <template>
-  <section class="recs" v-if="loaded && recs.length !== 0">
-    <BooksListComponent :books="recsBooks" />
+  <section class="books" v-if="loaded && folderBooks.length !== 0">
+    <BooksListComponent :books="folderBooks" />
     <!-- <h1>From {{ props.userFrom }}:</h1>
     <article v-for="rec in recs" :key="rec._id">
       <h1>book: {{ rec.book }}</h1>
     </article> -->
   </section>
-  <p v-else-if="loaded">No recommendations found</p>
+  <p v-else-if="loaded">Folder is empty</p>
   <p v-else>Loading...</p>
 </template>
 

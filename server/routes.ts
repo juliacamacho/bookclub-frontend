@@ -32,8 +32,8 @@ class Routes {
     const user = await User.create(username, password);
     if (user !== null) {
       await Folder.addNewFolder(user._id, "Read");
-      await Folder.addNewFolder(user._id, "To Read");
-      await Folder.addNewFolder(user._id, "Currently Reading");
+      await Folder.addNewFolder(user._id, "ToRead");
+      await Folder.addNewFolder(user._id, "Reading");
     } else {
       return { msg: "Can't find user..." };
     }
@@ -99,10 +99,11 @@ class Routes {
     return Post.delete(_id);
   }
 
-  @Router.get("/friends")
-  async getFriends(session: WebSessionDoc) {
-    const user = WebSession.getUser(session);
-    return await User.idsToUsernames(await Friend.getFriends(user));
+  @Router.get("/:username/friends")
+  async getFriends(username: string) {
+    // const user = WebSession.getUser(session);
+    const userId = (await User.getUserByUsername(username))._id;
+    return await User.idsToUsernames(await Friend.getFriends(userId));
   }
 
   @Router.delete("/friends")
@@ -279,7 +280,7 @@ class Routes {
     const user = WebSession.getUser(session);
 
     // update user's Currently Reading folder
-    await Folder.addToFolder({ owner: user, name: "Currently Reading" }, _id);
+    await Folder.addToFolder({ owner: user, name: "Reading" }, _id);
 
     return await Invitation.acceptInvitation(_id, user);
   }

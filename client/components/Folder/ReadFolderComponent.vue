@@ -6,7 +6,7 @@ import { onBeforeMount, ref } from "vue";
 import BooksListComponent from "@/components/Book/BooksListComponent.vue";
 
 const { currentUsername, isLoggedIn } = storeToRefs(useUserStore());
-const props = defineProps(["userFrom"]);
+const props = defineProps(["username"]);
 
 const loaded = ref(false);
 let folderContents = ref<Array<Record<string, string>>>([]);
@@ -23,17 +23,17 @@ async function getBooksFromIds(folderBooks: Array<Record<string, string>>) {
   } catch (_) {
     // console.log("catching");
   }
-  console.log("booksList:", booksList);
+  // console.log("booksList:", booksList);
   return [...booksList];
 }
 
 // get books from folder
 async function getFolderContents() {
   try {
-    folderContents.value = await fetchy(`/api/user/${currentUsername.value}/folders/Read`, "GET");
-    console.log("folderContents.value:", folderContents.value);
+    folderContents.value = await fetchy(`/api/user/${props.username}/folders/Read`, "GET");
+    // console.log("folderContents.value:", folderContents.value);
     folderBooks.value = await getBooksFromIds(folderContents.value);
-    console.log("folderBooks.value:", folderBooks.value);
+    // console.log("folderBooks.value:", folderBooks.value);
   } catch (_) {
     // console.log("catching");
     return;

@@ -14,7 +14,7 @@ let friends = ref<Array<Record<string, string>>>([]);
 async function getFriends() {
   let friendsResults;
   try {
-    friendsResults = await fetchy("/api/friends", "GET");
+    friendsResults = await fetchy(`/api/${currentUsername.value}/friends`, "GET");
   } catch (_) {
     return;
   }

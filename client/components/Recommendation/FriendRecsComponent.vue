@@ -3,7 +3,7 @@ import { useUserStore } from "@/stores/user";
 import { fetchy } from "@/utils/fetchy";
 import { storeToRefs } from "pinia";
 import { onBeforeMount, ref } from "vue";
-import FriendBooksListComponent from "@/components/Book/FriendBooksListComponent.vue";
+import FromFriendBooksListComponent from "@/components/Book/FromFriendBooksListComponent.vue";
 
 const { currentUsername, isLoggedIn } = storeToRefs(useUserStore());
 const props = defineProps(["userFrom"]);
@@ -19,14 +19,14 @@ async function getBooksFromIds(recs: Array<Record<string, string>>) {
   try {
     for (const rec of recs) {
       const _id = rec.book;
-      console.log("id:", _id);
+      // console.log("id:", _id);
       const book = await fetchy(`/api/books/${_id}`, "GET");
       booksList.push(book);
     }
   } catch (_) {
     // console.log("catching");
   }
-  console.log("booksList:", booksList);
+  // console.log("booksList:", booksList);
   return [...booksList];
 }
 
@@ -51,7 +51,7 @@ onBeforeMount(async () => {
 
 <template>
   <section class="recs" v-if="loaded && recs.length !== 0">
-    <FriendBooksListComponent :name="props.userFrom" :books="recsBooks" />
+    <FromFriendBooksListComponent :name="props.userFrom" :books="recsBooks" />
     <!-- <h1>From {{ props.userFrom }}:</h1>
     <article v-for="rec in recs" :key="rec._id">
       <h1>book: {{ rec.book }}</h1>

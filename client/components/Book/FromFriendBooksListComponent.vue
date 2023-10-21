@@ -16,8 +16,7 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <h1>{{ props.name }}:</h1>
-  <h3>{{ books.length + (books.length === 1 ? " book" : " books") }}</h3>
+  <h1>From {{ props.name }}:</h1>
   <section class="recs" v-if="loaded && books.length !== 0">
     <article v-for="book in books" :key="book._id">
       <a :href="`/books/${book._id}`">{{ book.title }}</a>

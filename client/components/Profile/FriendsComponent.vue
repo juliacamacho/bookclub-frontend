@@ -3,7 +3,6 @@ import { useUserStore } from "@/stores/user";
 import { fetchy } from "@/utils/fetchy";
 import { storeToRefs } from "pinia";
 import { onBeforeMount, ref } from "vue";
-import BooksListComponent from "@/components/Book/BooksListComponent.vue";
 
 const { currentUsername, isLoggedIn } = storeToRefs(useUserStore());
 const props = defineProps(["username"]);
@@ -18,7 +17,7 @@ async function getFriends() {
   } catch (_) {
     return;
   }
-  console.log("friendsResults:", friendsResults);
+  // console.log("friendsResults:", friendsResults);
   friends.value = friendsResults;
 }
 
@@ -30,13 +29,11 @@ onBeforeMount(async () => {
 
 <template>
   <section class="recs" v-if="loaded && friends.length !== 0">
-    <!-- <BooksListComponent :books="recsBooks" /> -->
-    <!-- <h1>From {{ props.userFrom }}:</h1> -->
     <article v-for="friend in friends" :key="friend._id">
       <a :href="`/users/${friend}`">{{ friend }}</a>
     </article>
   </section>
-  <p v-else-if="loaded">No recommendations found</p>
+  <p v-else-if="loaded">No friends found</p>
   <p v-else>Loading...</p>
 </template>
 

@@ -209,23 +209,29 @@ class Routes {
     // return Responses.posts(posts);
   }
 
-  @Router.get("/user/:username/folders/:folderName")
+  @Router.get("/users/:username/folders/:folderName")
   async getUserFolderContents(username: string, folderName: string) {
     const userId = (await User.getUserByUsername(username))._id;
     const items = await Folder.getUserFolderContents({ owner: userId, name: folderName });
     return items;
   }
 
-  @Router.post("/user/:username/folders/:folderName")
+  @Router.post("/users/:username/folders/:folderName")
   async addFolder(username: string, folderName: string) {
     const userId = (await User.getUserByUsername(username))._id;
     return await Folder.addNewFolder(userId, folderName);
   }
 
-  @Router.patch("/user/:username/folders/:folderName")
+  @Router.patch("/users/:username/folders/:folderName/add")
   async addToFolder(username: string, folderName: string, bookId: ObjectId) {
     const userId = (await User.getUserByUsername(username))._id;
     return await Folder.addToFolder({ owner: userId, name: folderName }, bookId);
+  }
+
+  @Router.patch("/users/:username/folders/:folderName/remove")
+  async removeFromFolder(username: string, folderName: string, bookId: ObjectId) {
+    const userId = (await User.getUserByUsername(username))._id;
+    return await Folder.removeFromFolder({ owner: userId, name: folderName }, bookId);
   }
 
   @Router.get("/recommendations")

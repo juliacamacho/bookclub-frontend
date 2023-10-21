@@ -4,6 +4,7 @@ import { fetchy } from "@/utils/fetchy";
 import { ObjectId } from "mongodb";
 import { storeToRefs } from "pinia";
 import { onBeforeMount, ref } from "vue";
+import BookFoldersComponent from "@/components/Book/BookFoldersComponent.vue";
 import RecommendingComponent from "@/components/Recommendation/RecommendingComponent.vue";
 
 const { currentUsername, isLoggedIn } = storeToRefs(useUserStore());
@@ -42,6 +43,7 @@ onBeforeMount(async () => {
   </section>
   <p v-else-if="loaded">No book found</p>
   <p v-else>Loading...</p>
+  <BookFoldersComponent v-bind:bookId="props.bookId" />
   <button @click="toggleRecommend">Recommend to a friend</button>
   <section v-if="recommending">
     <h3>Choose a friend to recommend this to:</h3>

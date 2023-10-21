@@ -30,7 +30,7 @@ async function getBooksFromIds(folderBooks: Array<Record<string, string>>) {
 // get books from folder
 async function getFolderContents() {
   try {
-    folderContents.value = await fetchy(`/api/user/${props.username}/folders/Reading`, "GET");
+    folderContents.value = await fetchy(`/api/users/${props.username}/folders/Reading`, "GET");
     // console.log("folderContents.value:", folderContents.value);
     folderBooks.value = await getBooksFromIds(folderContents.value);
     // console.log("folderBooks.value:", folderBooks.value);

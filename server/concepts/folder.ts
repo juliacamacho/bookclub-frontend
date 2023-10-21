@@ -46,15 +46,16 @@ export default class FolderConcept {
     }
   }
 
-  async removeFromFolder(query: Filter<FolderDoc>, owner: ObjectId, name: string, items: ObjectId[]) {
+  async removeFromFolder(query: Filter<FolderDoc>, item: ObjectId) {
     const folder = await this.folders.readOne(query);
     if (folder !== null) {
-      folder.items = folder.items.filter(function (x) {
-        return !items.includes(x);
+      const newItems = [...folder.items].filter(function (x) {
+        return x !== item;
       });
+      await this.folders.updateOne({ _id: folder._id }, { items: newItems });
+      return { msg: "Removed item from folder!" };
     } else {
       throw new NotFoundError(`Folder does not exist!`);
     }
-    return { msg: "Removed item from folder!" };
   }
 }

@@ -19,7 +19,6 @@ const tabs = {
   "To Read": ToRead,
   Friends,
 };
-
 </script>
 
 <template>

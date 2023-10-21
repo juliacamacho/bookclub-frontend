@@ -1,5 +1,6 @@
-import "@/assets/main.css";
+// import "@/assets/main.css";
 import "purecss";
+import "@/assets/index.css";
 
 import { createPinia } from "pinia";
 import piniaPluginPersistedState from "pinia-plugin-persistedstate";

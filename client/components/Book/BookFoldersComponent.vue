@@ -46,7 +46,6 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <h1>Friends</h1>
   <section class="friends" v-if="loaded">
     <!-- <article v-for="friend in friends" :key="friend._id">
       <button @click="sendRec(friend)">{{ friend }}</button>

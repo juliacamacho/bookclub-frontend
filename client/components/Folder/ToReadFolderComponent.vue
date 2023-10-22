@@ -55,7 +55,7 @@ onBeforeMount(async () => {
       <h1>book: {{ rec.book }}</h1>
     </article> -->
   </section>
-  <p v-else-if="loaded">Folder is empty</p>
+  <p v-else-if="loaded">This folder is currently empty.</p>
   <p v-else>Loading...</p>
 </template>
 

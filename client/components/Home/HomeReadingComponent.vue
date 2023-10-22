@@ -36,7 +36,9 @@ onBeforeMount(async () => {
   <!-- <h1>Friends</h1> -->
   <section class="friends" v-if="loaded && friends.length !== 0">
 
-    <HomeInvitationsListComponent />
+    <div class="mb-5">
+      <HomeInvitationsListComponent />
+    </div>
 
     <article v-for="friend in friends" :key="friend._id">
       <HomeFriendReadingComponent :username="friend" />

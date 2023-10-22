@@ -18,7 +18,13 @@ const tabs = {
 
 <template>
   <div>
-    <button v-for="(_, tab) in tabs" :key="tab" :class="['tab-button', { active: currentTab === tab }]" @click="currentTab = tab">
+    <button
+      class="text-2xl font-bold mr-8 mb-5 hover:underline"
+      v-for="(_, tab) in tabs"
+      :key="tab"
+      :class="['tab-button', { active: currentTab === tab }, { underline: currentTab === tab }]"
+      @click="currentTab = tab"
+    >
       {{ tab }}
     </button>
     <component :is="tabs[currentTab]" class="tab"></component>

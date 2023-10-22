@@ -48,12 +48,10 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <section class="recs" v-if="loaded">
-    <FriendBooksListComponent :name="props.username" :books="folderBooks" />
-    <!-- <h1>From {{ props.userFrom }}:</h1>
-    <article v-for="rec in recs" :key="rec._id">
-      <h1>book: {{ rec.book }}</h1>
-    </article> -->
+  <section v-if="loaded">
+    <div class="bg-gray-50 px-8 py-8 rounded-md">
+      <FriendBooksListComponent :name="props.username" :books="folderBooks" />
+    </div>
   </section>
   <p v-else>Loading...</p>
 </template>

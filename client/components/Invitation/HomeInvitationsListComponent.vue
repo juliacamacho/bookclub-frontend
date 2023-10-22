@@ -28,11 +28,14 @@ onBeforeMount(async () => {
 
 <template>
   <section class="recs" v-if="loaded && invitations.length !== 0">
-    <article v-for="invitation in invitations" :key="invitation._id">
-      <HomeInvitationComponent v-bind:invitation="invitation" />
-    </article>
+    <div class="bg-gray-50 px-8 py-8 rounded-md">
+      <h2 class="text-xl font-bold mb-4">Invitations from your friends:</h2>
+      <article v-for="invitation in invitations" :key="invitation._id">
+        <HomeInvitationComponent v-bind:invitation="invitation" />
+      </article>
+    </div>
   </section>
-  <p v-else-if="loaded">No invitations found</p>
+  <p class="bg-gray-50 px-8 py-8 rounded-md text-lg font-semibold" v-else-if="loaded">You don't have any reading invitations to respond to right now.</p>
   <p v-else>Loading...</p>
 </template>
 

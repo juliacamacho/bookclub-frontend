@@ -39,10 +39,12 @@ onBeforeMount(async () => {
 
 <template>
   <section class="recs" v-if="loaded">
-    <div class="flex space-x-8" v-if="!invitationResolved">
-      <a :href="`/books/${invitation.book}`">{{ bookTitle }}</a>
-      <button @click="acceptInvitation">Accept Invitation</button>
-      <button @click="declineInvitation">Decline Invitation</button>
+    <div class="bg-white drop-shadow-sm px-8 py-5 rounded-md flex justify-between items-center" v-if="!invitationResolved">
+      <a :href="`/books/${invitation.book}`" class="text-lg font-bold hover:underline">{{ bookTitle }}</a>
+      <div class="space-x-6">
+        <button class="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded" @click="acceptInvitation">Accept Invitation</button>
+        <button class="bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded" @click="declineInvitation">Decline Invitation</button>
+      </div>
     </div>
   </section>
   <p v-else>Loading...</p>

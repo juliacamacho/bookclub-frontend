@@ -16,15 +16,24 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <h1>{{ props.name }}:</h1>
-  <h3>{{ books.length + (books.length === 1 ? " book" : " books") }}</h3>
-  <section class="recs" v-if="loaded && books.length !== 0">
-    <article v-for="book in books" :key="book._id">
-      <a :href="`/books/${book._id}`">{{ book.title }}</a>
-    </article>
-  </section>
-  <p v-else-if="loaded">No books found</p>
-  <p v-else>Loading...</p>
+  <div class="flex space-x-16 items-center">
+
+    <div class="space-y-2">
+      <a class="text-xl font-bold" :href="`/users/${props.name}`">{{ props.name }}</a>
+      <h3>{{ books.length + (books.length === 1 ? " book" : " books") }}</h3>
+    </div>
+
+    <div>
+      <section v-if="loaded && books.length !== 0">
+        <article v-for="book in books" :key="book._id">
+          <a class="hover:underline" :href="`/books/${book._id}`">{{ book.title }}</a>
+        </article>
+      </section>
+      <p v-else-if="loaded">No books found</p>
+      <p v-else>Loading...</p>
+    </div>
+
+  </div>
 </template>
 
 <style scoped>

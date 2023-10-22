@@ -17,7 +17,7 @@ onBeforeMount(async () => {
 <template>
   <section class="recs" v-if="loaded && books.length !== 0">
     <article v-for="book in books" :key="book._id">
-      <a :href="`/books/${book._id}`">{{ book.title }}</a>
+      <a class="hover:underline" :href="`/books/${book._id}`">{{ book.title }}</a>
     </article>
   </section>
   <p v-else-if="loaded">No books found</p>

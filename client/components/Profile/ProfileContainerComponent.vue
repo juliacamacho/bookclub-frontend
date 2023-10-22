@@ -23,9 +23,11 @@ const tabs = {
 
 <template>
   <div>
-    <button v-for="(_, tab) in tabs" :key="tab" :class="['tab-button', { active: currentTab === tab }]" @click="currentTab = tab">
-      {{ tab }}
-    </button>
+    <div class="text-2xl font-semibold flex space-x-5 mb-6">
+      <button v-for="(_, tab) in tabs" :key="tab" class="hover:underline" :class="['tab-button', { active: currentTab === tab }, { underline: currentTab === tab }]" @click="currentTab = tab">
+        {{ tab }}
+      </button>
+    </div>
     <component :is="tabs[currentTab]" v-bind:username="props.username" class="tab"></component>
   </div>
 </template>

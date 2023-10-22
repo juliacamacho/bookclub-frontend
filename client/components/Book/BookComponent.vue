@@ -5,6 +5,7 @@ import { ObjectId } from "mongodb";
 import { storeToRefs } from "pinia";
 import { onBeforeMount, ref } from "vue";
 import BookReadByComponent from "./BookReadByComponent.vue";
+import BookInvitationComponent from "@/components/Invitation/BookInvitationComponent.vue";
 import BookFoldersComponent from "@/components/Book/BookFoldersComponent.vue";
 import RecommendingComponent from "@/components/Recommendation/RecommendingComponent.vue";
 
@@ -47,6 +48,8 @@ onBeforeMount(async () => {
   <p v-else>Loading...</p>
 
   <BookReadByComponent v-bind:bookId="props.bookId" />
+
+  <BookInvitationComponent v-bind:bookId="props.bookId" />
 
   <BookFoldersComponent v-bind:bookId="props.bookId" />
 

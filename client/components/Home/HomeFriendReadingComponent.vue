@@ -43,6 +43,7 @@ async function getFolderContents() {
 onBeforeMount(async () => {
   // console.log("props.userFrom:", props.userFrom);
   await getFolderContents();
+  console.log("folderBooks:", folderBooks);
   loaded.value = true;
 });
 </script>

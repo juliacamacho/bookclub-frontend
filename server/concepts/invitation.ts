@@ -25,8 +25,12 @@ export default class InvitationConcept {
   async acceptInvitation(_id: ObjectId, userId: ObjectId) {
     const invitation = await this.invitations.readOne({ _id });
     if (invitation !== null) {
-      const newList = [...invitation.usersAccepted, userId];
-      await this.invitations.updateOne({ _id: invitation._id }, { usersAccepted: newList });
+      // remove from usersPending list
+      const newPendingList = [...invitation.usersPending].filter((id) => !id.equals(userId));
+      await this.invitations.updateOne({ _id: invitation._id }, { usersPending: newPendingList });
+      // add to usersAccepted list
+      const newAcceptedList = [...invitation.usersAccepted, userId];
+      await this.invitations.updateOne({ _id: invitation._id }, { usersAccepted: newAcceptedList });
       return { msg: "Accepted invitation!" };
     } else {
       throw new NotFoundError(`Invitation does not exist!`);
@@ -36,7 +40,7 @@ export default class InvitationConcept {
   async declineInvitation(_id: ObjectId, userId: ObjectId) {
     const invitation = await this.invitations.readOne({ _id });
     if (invitation !== null) {
-      const newList = invitation.usersPending.filter((id) => id !== userId);
+      const newList = [...invitation.usersPending].filter((id) => !id.equals(userId));
       await this.invitations.updateOne({ _id: invitation._id }, { usersPending: newList });
       return { msg: "Declined invitation!" };
     } else {

@@ -282,11 +282,11 @@ class Routes {
   }
 
   @Router.patch("/invitations/:_id/accept")
-  async acceptInvitation(session: WebSessionDoc, _id: ObjectId) {
+  async acceptInvitation(session: WebSessionDoc, _id: ObjectId, bookId: ObjectId) {
     const user = WebSession.getUser(session);
 
     // update user's Currently Reading folder
-    await Folder.addToFolder({ owner: user, name: "Reading" }, _id);
+    await Folder.addToFolder({ owner: user, name: "Reading" }, bookId);
 
     return await Invitation.acceptInvitation(_id, user);
   }

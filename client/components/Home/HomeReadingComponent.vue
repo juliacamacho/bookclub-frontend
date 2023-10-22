@@ -3,6 +3,7 @@ import { useUserStore } from "@/stores/user";
 import { fetchy } from "@/utils/fetchy";
 import { storeToRefs } from "pinia";
 import { onBeforeMount, ref } from "vue";
+import HomeInvitationsListComponent from "@/components/Invitation/HomeInvitationsListComponent.vue";
 import HomeFriendReadingComponent from "@/components/Home/HomeFriendReadingComponent.vue";
 
 const { currentUsername, isLoggedIn } = storeToRefs(useUserStore());
@@ -35,7 +36,7 @@ onBeforeMount(async () => {
   <!-- <h1>Friends</h1> -->
   <section class="friends" v-if="loaded && friends.length !== 0">
 
-    <h1>insert invitations component here</h1>
+    <HomeInvitationsListComponent />
 
     <article v-for="friend in friends" :key="friend._id">
       <HomeFriendReadingComponent :username="friend" />

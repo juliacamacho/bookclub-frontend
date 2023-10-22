@@ -113,8 +113,14 @@ class Routes {
     return await Friend.removeFriend(user, friendId);
   }
 
-  @Router.get("/friends/requests")
-  async getRequests(session: WebSessionDoc) {
+  @Router.get("/friends/requests/sent")
+  async getRequestsSent(session: WebSessionDoc) {
+    const user = WebSession.getUser(session);
+    return await Responses.friendRequests(await Friend.getRequestsSent(user));
+  }
+
+  @Router.get("/friends/requests/receieved")
+  async getRequestsReceieved(session: WebSessionDoc) {
     const user = WebSession.getUser(session);
     return await Responses.friendRequests(await Friend.getPendingRequests(user));
   }

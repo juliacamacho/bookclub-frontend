@@ -23,6 +23,13 @@ export default class FriendConcept {
     });
   }
 
+  async getRequestsSent(user: ObjectId) {
+    // return await this.requests.readMany({
+    //   $or: [{ from: user }, { to: user }],
+    // });
+    return await this.requests.readMany({ from: user, status: "pending" });
+  }
+
   async getPendingRequests(user: ObjectId) {
     // return await this.requests.readMany({
     //   $or: [{ from: user }, { to: user }],

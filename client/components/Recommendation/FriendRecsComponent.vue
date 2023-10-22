@@ -3,7 +3,8 @@ import { useUserStore } from "@/stores/user";
 import { fetchy } from "@/utils/fetchy";
 import { storeToRefs } from "pinia";
 import { onBeforeMount, ref } from "vue";
-import FromFriendBooksListComponent from "@/components/Book/FromFriendBooksListComponent.vue";
+// import FromFriendBooksListComponent from "@/components/Book/FromFriendBooksListComponent.vue";
+import FriendBooksListComponent from "@/components/Book/FriendBooksListComponent.vue";
 
 const { currentUsername, isLoggedIn } = storeToRefs(useUserStore());
 const props = defineProps(["userFrom"]);
@@ -51,7 +52,8 @@ onBeforeMount(async () => {
 
 <template>
   <section class="recs" v-if="loaded && recs.length !== 0">
-    <FromFriendBooksListComponent :name="props.userFrom" :books="recsBooks" />
+    <FriendBooksListComponent :name="props.userFrom" :books="recsBooks" />
+    <!-- <FromFriendBooksListComponent :name="props.userFrom" :books="recsBooks" /> -->
     <!-- <h1>From {{ props.userFrom }}:</h1>
     <article v-for="rec in recs" :key="rec._id">
       <h1>book: {{ rec.book }}</h1>

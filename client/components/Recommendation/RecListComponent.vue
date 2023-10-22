@@ -35,7 +35,7 @@ onBeforeMount(async () => {
   <!-- <h1>Friends</h1> -->
   <section class="friends" v-if="loaded && friends.length !== 0">
     <article v-for="friend in friends" :key="friend._id">
-      <FriendRecsComponent :userFrom="friend" />
+      <FriendRecsComponent :userFrom="friend" class="mb-5" />
       <!-- <FriendRecsComponent v-for="friend in friends" v-bind="friend" :key="friend._id" /> -->
       <!-- <h1>{{ friend }}</h1> -->
     </article>

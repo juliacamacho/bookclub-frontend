@@ -35,7 +35,11 @@ async function getBookRatings() {
     sum += rating.value;
   }
   // console.log("sum:", sum);
-  avgRating.value = sum / ratings.length;
+  if (ratings.length > 0) {
+    avgRating.value = sum / ratings.length;
+  } else {
+    avgRating.value = 0;
+  }
 }
 
 async function toggleRecommend() {

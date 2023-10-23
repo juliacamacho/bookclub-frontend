@@ -8,7 +8,7 @@ const { isLoggedIn } = storeToRefs(useUserStore());
 
 <template>
   <main v-if="isLoggedIn" class="sm:mx-12 sm:my-10 mx-4 my-3">
-    <h1 class="text-3xl font-bold mb-6">Your Recommendations</h1>
+    <h1 class="text-3xl font-bold mb-6">Your recommendations from friends</h1>
     <RecListComponent />
   </main>
   <h1 v-else>Please login!</h1>

@@ -15,7 +15,7 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <div class="flex space-x-16 items-center">
+  <div class="bg-gray-50 px-10 py-8 rounded flex space-x-16 items-center">
 
     <div class="space-y-2">
       <a class="text-xl font-bold" :href="`/users/${props.name}`">{{ props.name }}</a>

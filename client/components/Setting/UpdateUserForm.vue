@@ -32,10 +32,10 @@ async function updatePassword() {
               type="text"
               placeholder="New username"
               v-model="username"
-              className="px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+              className="px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-sky-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
               required
             />
-            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded mr-6">Update username</button>
+            <button type="submit" class="bg-orange-600 hover:bg-orange-700 text-white font-semibold px-4 py-2 rounded mr-6">Update username</button>
           </div>
         </fieldset>
       </form>
@@ -48,10 +48,10 @@ async function updatePassword() {
               type="password"
               placeholder="New password"
               v-model="password"
-              className="px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+              className="px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-sky-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
               required
             />
-            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded mr-6">Update password</button>
+            <button type="submit" class="bg-orange-600 hover:bg-orange-700 text-white font-semibold px-4 py-2 rounded mr-6">Update password</button>
           </div>
         </fieldset>
       </form>

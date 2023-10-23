@@ -68,7 +68,7 @@ onBeforeMount(async () => {
       <h1 class="text-3xl font-bold">{{ props.username }}</h1>
       <button
         v-if="!currentlyFriends"
-        class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded" 
+        class="bg-sky-500 hover:bg-sky-600 text-white font-semibold px-4 py-2 rounded" 
         @click="sendOrRemoveFriendRequest"
       > 
         {{ friendRequestSent ? "Remove friend request" : "Send friend request" }}</button>

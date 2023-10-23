@@ -32,14 +32,14 @@ onBeforeMount(async () => {
                 type="text"
                 placeholder="Book rating"
                 v-model="ratingValue"
-                className="px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                className="px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-sky-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                 required
                 />
             </div>
           </div>
             <button 
                 type="submit"
-                class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded"
+                class="bg-sky-500 hover:bg-sky-600 text-white font-semibold px-4 py-2 rounded"
                 >Add rating</button>
         </div>
     </form>

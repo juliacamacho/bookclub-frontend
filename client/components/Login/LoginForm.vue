@@ -24,7 +24,7 @@ async function login() {
           v-model.trim="username" 
           type="text" 
           id="aligned-name" 
-          class="px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+          class="px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-sky-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
           placeholder="Username" required />
       </div>
       <div class="space-x-7">
@@ -33,13 +33,13 @@ async function login() {
           type="password" 
           v-model.trim="password" 
           id="aligned-password" 
-          class="px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+          class="px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-sky-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
           placeholder="Password" required />
       </div>
       <div class="mt-4">
         <button 
           type="submit" 
-          class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded mr-6"
+          class="bg-sky-500 hover:bg-sky-600 text-white font-semibold px-4 py-2 rounded mr-6"
           >Submit</button>
       </div>
     </fieldset>

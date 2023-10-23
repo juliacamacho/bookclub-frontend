@@ -49,7 +49,7 @@ async function sendOrRemoveFriendRequest() {
   }
 }
 
-const tabs = {
+const tabs: any = {
   "Currently Reading": Reading,
   Read,
   "To Read": ToRead,
@@ -74,7 +74,13 @@ onBeforeMount(async () => {
         {{ friendRequestSent ? "Remove friend request" : "Send friend request" }}</button>
     </div>
     <div class="text-2xl font-semibold flex space-x-5 mb-6">
-      <button v-for="(_, tab) in tabs" :key="tab" class="hover:underline" :class="['tab-button', { active: currentTab === tab }, { underline: currentTab === tab }]" @click="currentTab = tab">
+      <button
+        v-for="(_, tab) in tabs"
+        :key="tab"
+        class="hover:underline"
+        :class="['tab-button', { active: currentTab === tab.toString() }, { underline: currentTab === tab.toString() }]"
+        @click="currentTab = tab.toString()"
+      >
         {{ tab }}
       </button>
     </div>

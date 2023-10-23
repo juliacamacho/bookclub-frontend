@@ -14,7 +14,7 @@ async function checkForInvitation() {
   try {
     const invitationsPosted = await fetchy(`/api/invitations/posted`, "GET");
     console.log("invitationsPosted:", invitationsPosted);
-    if (invitationsPosted.filter((e) => e.book === props.bookId).length > 0) {
+    if (invitationsPosted.filter((e: { book: any }) => e.book === props.bookId).length > 0) {
       invitationPosted.value = true;
     }
   } catch (_) {

@@ -10,7 +10,7 @@ const { currentUsername } = storeToRefs(useUserStore());
 
 const currentTab = ref("What your friends are reading");
 
-const tabs = {
+const tabs: any = {
   "What your friends are reading": Reading,
   "What your friends want to read": ToRead,
 };
@@ -22,8 +22,8 @@ const tabs = {
       class="text-2xl font-bold mr-8 mb-5 hover:underline"
       v-for="(_, tab) in tabs"
       :key="tab"
-      :class="['tab-button', { active: currentTab === tab }, { underline: currentTab === tab }]"
-      @click="currentTab = tab"
+      :class="['tab-button', { active: currentTab === tab.toString() }, { underline: currentTab === tab.toString() }]"
+      @click="currentTab = tab.toString()"
     >
       {{ tab }}
     </button>

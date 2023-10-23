@@ -4,6 +4,7 @@ import { fetchy } from "@/utils/fetchy";
 import e from "cors";
 import { storeToRefs } from "pinia";
 import { onBeforeMount, ref } from "vue";
+import BookRatingComponent from "@/components/Book/BookRatingComponent.vue";
 
 const { currentUsername, isLoggedIn } = storeToRefs(useUserStore());
 const props = defineProps(["bookId"]);
@@ -46,7 +47,7 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <section class="space-x-6" v-if="loaded">
+  <section class="flex space-x-6" v-if="loaded">
     <!-- <article v-for="friend in friends" :key="friend._id">
       <button @click="sendRec(friend)">{{ friend }}</button>
     </article> -->
@@ -65,7 +66,10 @@ onBeforeMount(async () => {
       class="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-4 py-2 rounded"
       :class="{ 'bg-orange-700': currentFolder == 'Read' }"
       >{{ currentFolder !== "Read" ? "Add to 'Read' Folder" : "Remove from 'Read' Folder" }}</button>
-  </section>
+  
+    <BookRatingComponent v-if="currentFolder === 'Read'" :bookId="props.bookId" />
+
+    </section>
   <!-- <p v-else-if="loaded">No friends found</p> -->
   <p v-else>Loading...</p>
 </template>

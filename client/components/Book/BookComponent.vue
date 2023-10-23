@@ -15,6 +15,7 @@ const props = defineProps(["bookId"]);
 const book = ref<Record<string, string>>();
 const loaded = ref(false);
 const recommending = ref(false);
+const avgRating = ref();
 
 async function getBookFromId(_id: ObjectId) {
   let book;
@@ -26,13 +27,26 @@ async function getBookFromId(_id: ObjectId) {
   return book;
 }
 
+async function getBookRatings() {
+  const ratings = await fetchy(`/api/ratings`, "GET", { query: { bookId: props.bookId } });
+  // console.log("RATINGS:", ratings);
+  let sum = 0;
+  for (const rating of ratings) {
+    sum += rating.value;
+  }
+  // console.log("sum:", sum);
+  avgRating.value = sum / ratings.length;
+}
+
 async function toggleRecommend() {
   recommending.value = recommending.value === true ? false : true;
 }
 
 onBeforeMount(async () => {
-//   console.log("props.bookId:", props.bookId);
+  // console.log("props.bookId:", props.bookId);
   book.value = await getBookFromId(props.bookId);
+  await getBookRatings();
+  // console.log("avgRating:", avgRating.value);
   loaded.value = true;
 });
 </script>
@@ -40,7 +54,10 @@ onBeforeMount(async () => {
 <template>
   <section class="mb-6" v-if="loaded && book !== null">
     <h1 class="text-3xl font-bold mb-2">{{ book?.title }}</h1>
-    <h2 class="text-2xl font-semibold mb-4">By {{ book?.author }}</h2>
+    <div class="flex space-x-6 items-center mb-4">
+      <h2 class="text-2xl font-semibold">By {{ book?.author }}</h2>
+      <h2 class="font-semibold">Rating: {{ avgRating }} / 5 stars</h2>
+    </div>
     <p>{{ book?.description }}</p>
   </section>
   <p v-else-if="loaded">No book found</p>

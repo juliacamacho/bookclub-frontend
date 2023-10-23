@@ -7,8 +7,7 @@ const { currentUsername, isLoggedIn } = storeToRefs(useUserStore());
 </script>
 
 <template>
-  <main>
-    <h1>Book</h1>
+  <main class="sm:mx-12 sm:my-10 mx-4 my-3">
     <section v-if="isLoggedIn">
       <BookComponent v-bind:bookId="$route.params._id" />
     </section>

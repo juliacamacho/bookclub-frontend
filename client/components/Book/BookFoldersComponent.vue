@@ -46,13 +46,25 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <section class="friends" v-if="loaded">
+  <section class="space-x-6" v-if="loaded">
     <!-- <article v-for="friend in friends" :key="friend._id">
       <button @click="sendRec(friend)">{{ friend }}</button>
     </article> -->
-    <button @click="assignNewFolder('ToRead')">{{ currentFolder !== "ToRead" ? "Add to 'To Read' Folder" : "Remove from 'To Read' Folder" }}</button>
-    <button @click="assignNewFolder('Reading')">{{ currentFolder !== "Reading" ? "Add to 'Reading' Folder" : "Remove from 'Reading' Folder" }}</button>
-    <button @click="assignNewFolder('Read')">{{ currentFolder !== "Read" ? "Add to 'Read' Folder" : "Remove from 'Read' Folder" }}</button>
+    <button 
+      @click="assignNewFolder('ToRead')"
+      class="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-4 py-2 rounded"
+      :class="{ 'bg-orange-700': currentFolder == 'ToRead' }"
+    >{{ currentFolder !== "ToRead" ? "Add to 'To Read' Folder" : "Remove from 'To Read' Folder" }}</button>
+    <button 
+      @click="assignNewFolder('Reading')"
+      class="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-4 py-2 rounded"
+      :class="{ 'bg-orange-700': currentFolder == 'Reading' }"
+    >{{ currentFolder !== "Reading" ? "Add to 'Reading' Folder" : "Remove from 'Reading' Folder" }}</button>
+    <button 
+      @click="assignNewFolder('Read')"
+      class="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-4 py-2 rounded"
+      :class="{ 'bg-orange-700': currentFolder == 'Read' }"
+      >{{ currentFolder !== "Read" ? "Add to 'Read' Folder" : "Remove from 'Read' Folder" }}</button>
   </section>
   <!-- <p v-else-if="loaded">No friends found</p> -->
   <p v-else>Loading...</p>

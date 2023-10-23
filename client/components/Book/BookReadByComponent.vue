@@ -53,15 +53,17 @@ onBeforeMount(async () => {
 
 <template>
   <!-- <h1>Friends</h1> -->
-  <h2>Read by:</h2>
-  <section class="friends" v-if="loaded && friendsWhoRead.length !== 0">
-    <article v-for="friend in friendsWhoRead" :key="friend._id">
-      <h1>{{ friend }}</h1>
-      <!-- todo: add their rating for the book -->
-    </article>
-  </section>
-  <p v-else-if="loaded">None of your friends have read this book yet</p>
-  <p v-else>Loading...</p>
+  <div class="bg-gray-50 px-6 py-4 my-4">
+  <h2 class="text-lg font-bold mb-2">Read by:</h2>
+    <section class="friends" v-if="loaded && friendsWhoRead.length !== 0">
+      <article v-for="friend in friendsWhoRead" :key="friend._id">
+        <a :href="`/users/${friend}`" class="hover:underline">{{ friend }}</a>
+        <!-- todo: add their rating for the book -->
+      </article>
+    </section>
+    <p v-else-if="loaded" class="text-lg">None of your friends have read this book yet. Recommend it to them or invite them to read it with you!</p>
+    <p v-else>Loading...</p>
+  </div>
 </template>
 
 <style scoped>

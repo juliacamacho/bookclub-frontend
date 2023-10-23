@@ -119,7 +119,7 @@ class Routes {
     return await Responses.friendRequests(await Friend.getRequestsSent(user));
   }
 
-  @Router.get("/friends/requests/receieved")
+  @Router.get("/friends/requests/received")
   async getRequestsReceieved(session: WebSessionDoc) {
     const user = WebSession.getUser(session);
     return await Responses.friendRequests(await Friend.getPendingRequests(user));

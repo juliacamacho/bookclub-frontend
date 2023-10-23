@@ -40,7 +40,11 @@ onBeforeMount(async () => {
 
 <template>
   <section class="friends" v-if="loaded">
-    <button @click="postInvitation()" :disabled="invitationPosted">{{ !invitationPosted ? "Create Invitation" : "Invitation Created!" }}</button>
+    <button 
+      @click="postInvitation()" 
+      :disabled="invitationPosted"
+      class="bg-pink-500 hover:bg-pink-600 text-white font-semibold px-4 py-2 rounded"
+    >{{ !invitationPosted ? "Invite your friends to read this with you" : "Reading invitation has been sent to your friends!" }}</button>
   </section>
   <p v-else>Loading...</p>
 </template>

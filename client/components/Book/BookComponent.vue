@@ -38,26 +38,34 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <section class="recs" v-if="loaded && book !== null">
-    <h1>{{ book?.title }}</h1>
-    <h2>By {{ book?.author }}</h2>
-    <p>Book description: {{ book?.description }}</p>
+  <section class="mb-6" v-if="loaded && book !== null">
+    <h1 class="text-3xl font-bold mb-2">{{ book?.title }}</h1>
+    <h2 class="text-2xl font-semibold mb-4">By {{ book?.author }}</h2>
+    <p>{{ book?.description }}</p>
   </section>
-
   <p v-else-if="loaded">No book found</p>
   <p v-else>Loading...</p>
 
-  <BookReadByComponent v-bind:bookId="props.bookId" />
+  <div class="space-y-5">
+    <BookFoldersComponent v-bind:bookId="props.bookId" />
+    <BookReadByComponent v-bind:bookId="props.bookId" />
+    
+    <div class="flex space-x-8">
+      <div>
+        <button 
+          @click="toggleRecommend"
+          class="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-4 py-2 rounded"
+          :class="{ 'bg-yellow-600': recommending }"
+          >{{ !recommending ? 'Recommend to a friend' : 'Cancel recommending' }}</button>
+        <section class="my-4 space-y-2" v-if="recommending">
+          <h3 class="text font-semibold">Choose a friend to recommend this to:</h3>
+          <RecommendingComponent v-bind:bookId="props.bookId" />
+        </section>
+      </div>
+      <BookInvitationComponent v-bind:bookId="props.bookId" />
+    </div>
+  </div>
 
-  <BookInvitationComponent v-bind:bookId="props.bookId" />
-
-  <BookFoldersComponent v-bind:bookId="props.bookId" />
-
-  <button @click="toggleRecommend">Recommend to a friend</button>
-  <section v-if="recommending">
-    <h3>Choose a friend to recommend this to:</h3>
-    <RecommendingComponent v-bind:bookId="props.bookId" />
-  </section>
 </template>
 
 <style scoped>

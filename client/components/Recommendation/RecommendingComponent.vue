@@ -39,7 +39,10 @@ onBeforeMount(async () => {
   <!-- <h1>Friends</h1> -->
   <section class="friends" v-if="loaded && friends.length !== 0">
     <article v-for="friend in friends" :key="friend._id">
-      <button @click="sendRec(friend)">{{ friend }}</button>
+      <button 
+        @click="sendRec(friend)"
+        class="hover:font-bold"
+        >{{ friend }}</button>
     </article>
   </section>
   <p v-else-if="loaded">No friends found</p>

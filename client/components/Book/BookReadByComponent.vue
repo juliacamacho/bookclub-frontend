@@ -53,7 +53,7 @@ onBeforeMount(async () => {
 
 <template>
   <!-- <h1>Friends</h1> -->
-  <div class="bg-gray-50 px-6 py-4 my-4">
+  <div class="bg-gray-50 px-6 py-5 my-4">
   <h2 class="text-lg font-bold mb-2">Read by:</h2>
     <section class="friends" v-if="loaded && friendsWhoRead.length !== 0">
       <article v-for="friend in friendsWhoRead" :key="friend._id">

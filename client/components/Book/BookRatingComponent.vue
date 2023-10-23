@@ -26,7 +26,7 @@ onBeforeMount(async () => {
     <form @submit.prevent="submitRating">
         <div class="flex space-x-5 items-end">
             <div>
-            <legend>Enter rating from 0 to 5</legend>
+            <legend>Enter rating from 0 to 5:</legend>
             <div class="space-x-6">
                 <input
                 type="text"

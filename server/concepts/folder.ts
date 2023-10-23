@@ -37,10 +37,14 @@ export default class FolderConcept {
     const folder = await this.folders.readOne(query);
     if (folder !== null) {
       // folder.items = folder.items.concat(items);
-      const newItems = [...folder.items, item];
-      console.log("ITEMS:", newItems);
-      await this.folders.updateOne({ _id: folder._id }, { items: newItems });
-      return { msg: "Added item to folder!" };
+      if (!folder.items.includes(item)) {
+        const newItems = [...folder.items, item];
+        console.log("ITEMS:", newItems);
+        await this.folders.updateOne({ _id: folder._id }, { items: newItems });
+        return { msg: "Added item to folder!" };
+      } else {
+        return { msg: "Item already in folder!" };
+      }
     } else {
       throw new NotFoundError(`Folder does not exist!`);
     }

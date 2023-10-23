@@ -5,6 +5,7 @@ import { useUserStore } from "@/stores/user";
 import HomeView from "../views/HomeView.vue";
 import LoginView from "../views/LoginView.vue";
 import NotFoundView from "../views/NotFoundView.vue";
+import AllBooksView from "../views/AllBooksView.vue";
 import SettingView from "../views/SettingView.vue";
 import RecsView from "../views/RecsView.vue";
 import BookView from "../views/BookView.vue";
@@ -23,6 +24,11 @@ const router = createRouter({
       name: "Settings",
       component: SettingView,
       meta: { requiresAuth: true },
+    },
+    {
+      path: "/books",
+      name: "AllBooks",
+      component: AllBooksView,
     },
     {
       path: "/recommendations",

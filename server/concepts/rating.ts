@@ -20,7 +20,12 @@ export default class RatingConcept {
     // first check if rating already exists for this book and user:
     const rating = await this.ratings.readOne({ owner: user, book: bookId });
     if (rating !== null) {
-      throw new NotAllowedError(`Rating for this book by this user already exists!`);
+      await this.ratings.deleteOne({ owner: user, book: bookId });
+      const _id = await this.ratings.createOne({ owner: user, book: bookId, value });
+      return { msg: "Rating successfully updated!", folder: await this.ratings.readOne({ _id }) };
+    }
+    if (value < 0 || value > 5) {
+      throw new NotAllowedError(`Rating for this book must be in between 0 and 5!`);
     }
     const _id = await this.ratings.createOne({ owner: user, book: bookId, value });
     return { msg: "Rating successfully created!", folder: await this.ratings.readOne({ _id }) };

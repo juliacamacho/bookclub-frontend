@@ -1,18 +1,20 @@
 <script setup lang="ts">
 import { useUserStore } from "@/stores/user";
 import { fetchy } from "@/utils/fetchy";
-import e from "cors";
 import { storeToRefs } from "pinia";
 import { onBeforeMount, ref } from "vue";
 
 const { currentUsername, isLoggedIn } = storeToRefs(useUserStore());
 const props = defineProps(["bookId"]);
 
+const emit = defineEmits(["rated"]);
+
 const loaded = ref(false);
 let ratingValue = ref();
 
 async function submitRating() {
   await fetchy(`/api/books/${props.bookId}/rating`, "POST", { body: { value: ratingValue.value } });
+  emit("rated", ratingValue);
 }
 
 onBeforeMount(async () => {

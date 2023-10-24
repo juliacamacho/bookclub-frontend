@@ -17,6 +17,11 @@ const loaded = ref(false);
 const recommending = ref(false);
 const avgRating = ref();
 
+async function handeRatedEvents() {
+  console.log("rated2");
+  await getBookRatings();
+}
+
 async function getBookFromId(_id: ObjectId) {
   let book;
   try {
@@ -68,7 +73,14 @@ onBeforeMount(async () => {
   <p v-else>Loading...</p>
 
   <div class="space-y-5">
-    <BookFoldersComponent v-bind:bookId="props.bookId" />
+    <BookFoldersComponent
+      v-on:rated="
+        async () => {
+          await handeRatedEvents();
+        }
+      "
+      v-bind:bookId="props.bookId"
+    />
     <BookReadByComponent v-bind:bookId="props.bookId" />
     
     <div class="flex space-x-8">

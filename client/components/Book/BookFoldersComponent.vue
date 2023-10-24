@@ -1,16 +1,22 @@
 <script setup lang="ts">
 import { useUserStore } from "@/stores/user";
 import { fetchy } from "@/utils/fetchy";
-import e from "cors";
 import { storeToRefs } from "pinia";
 import { onBeforeMount, ref } from "vue";
 import BookRatingComponent from "@/components/Book/BookRatingComponent.vue";
+
+const emit = defineEmits(["rated"]);
 
 const { currentUsername, isLoggedIn } = storeToRefs(useUserStore());
 const props = defineProps(["bookId"]);
 
 const loaded = ref(false);
 let currentFolder = ref<string>();
+
+function handeRatedEvents(value: number) {
+  console.log("rated1");
+  emit("rated");
+}
 
 async function updateCurrentFolder() {
   const ToReadContents = await fetchy(`/api/users/${currentUsername.value}/folders/ToRead`, "GET");
@@ -67,7 +73,7 @@ onBeforeMount(async () => {
       :class="{ 'bg-orange-700': currentFolder == 'Read' }"
       >{{ currentFolder !== "Read" ? "Add to 'Read' Folder" : "Remove from 'Read' Folder" }}</button>
   
-    <BookRatingComponent v-if="currentFolder === 'Read'" :bookId="props.bookId" />
+    <BookRatingComponent v-on:rated="handeRatedEvents" v-if="currentFolder === 'Read'" :bookId="props.bookId" />
 
     </section>
   <!-- <p v-else-if="loaded">No friends found</p> -->

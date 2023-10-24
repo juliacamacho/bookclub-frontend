@@ -14,7 +14,7 @@ const { isLoggedIn } = storeToRefs(useUserStore());
       <AllBooksListComponent />
       <AddBookForm />
     </main>
-    <h1 v-else>Please login!</h1>
+    <h1 v-else class="text-3xl font-bold mb-6">Please login!</h1>
   </div>
 </template>
 
